@@ -2,6 +2,12 @@
 
 Helps to restart automatically your deno application during development
 
+## Installation
+
+```sh
+deno install --allow-read --allow-run drun https://deno.land/x/drun/drun.ts
+```
+
 ## How to use
 
 ```sh
