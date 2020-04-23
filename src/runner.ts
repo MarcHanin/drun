@@ -1,4 +1,4 @@
-import { Config } from './interfaces/config.ts';
+import { Config } from './interfaces/types.ts';
 
 const DENO_EXE = 'deno';
 const DEFAULT_CWD = './';

@@ -1,33 +1,19 @@
-import { readJson } from './deps.ts';
-import { Config } from './interfaces/config.ts';
+import { readJson, extname } from './deps.ts';
+import { Config } from './interfaces/types.ts';
 import { DrunConfigValidationError } from './errors/drunConfigValidationError.ts';
 
 const DEFAULT_CONFIG_PATH = './drun.json';
 
-const DEFAULT_CONFIG: Config = {
+const DEFAULT_CONFIG = {
   cwd: './',
   entryPoint: '',
   excludes: [],
 };
 
-/**
- * Validate configuration object
- *
- * @param config - configuration object to be validated
- */
-const validateConfig = (config: any) => {
-  if (config.excludes && !Array.isArray(config.excludes)) {
-    throw new DrunConfigValidationError('Excludes must be an array');
-  }
-
-  if (config.cwd && typeof config.cwd !== 'string') {
-    throw new DrunConfigValidationError('CWD must be a string');
-  }
-
-  if (config.entryPoint && typeof config.entryPoint !== 'string') {
-    throw new DrunConfigValidationError('Entry point must be a string');
-  }
-}
+const ENTRY_POINT_ALLOWED_EXTENSIONS = [
+  '.js',
+  '.ts',
+];
 
 /**
  * Resolve a list of paths
@@ -46,26 +32,62 @@ const resolvePaths = async (paths: string[]): Promise<string[]> => {
 };
 
 /**
+ * Validate configuration object
+ *
+ * @param config - configuration object to be validated
+ */
+const validateConfig = (config: any) => {
+  if (config.excludes && !Array.isArray(config.excludes)) {
+    throw new DrunConfigValidationError('Excludes must be an array');
+  }
+
+  if (config.cwd && typeof config.cwd !== 'string') {
+    throw new DrunConfigValidationError('CWD must be a string');
+  }
+
+  if (!config.entryPoint) {
+    throw new DrunConfigValidationError('Entry point is required');
+  }
+
+  if (config.entryPoint && typeof config.entryPoint !== 'string') {
+    throw new DrunConfigValidationError('Entry point must be a string');
+  }
+
+  if (!ENTRY_POINT_ALLOWED_EXTENSIONS.includes(extname(config.entryPoint))) {
+    throw new DrunConfigValidationError('Entry point must be one of the following types: .js, .ts');
+  }
+}
+
+/**
  * Load configuration
  */
-export const loadConfig = async (): Promise<Config> => {
+export const loadConfig = async (args: any): Promise<Config> => {
+  let config: Config = DEFAULT_CONFIG;
+
   try {
-    const config = await readJson(DEFAULT_CONFIG_PATH) as Config;
-    validateConfig(config);
+    const configFile = await readJson(DEFAULT_CONFIG_PATH) as any;
 
-    if (config.excludes) {
-      config.excludes = await resolvePaths(config.excludes);
-    }
-
-    return {
-      ...DEFAULT_CONFIG,
+    config = {
       ...config,
+      ...configFile,
+      ...args,
     };
   } catch (err) {
-    if (err instanceof Deno.errors.NotFound) {
-      return DEFAULT_CONFIG;
+    if (!(err instanceof Deno.errors.NotFound)) {
+      throw err;
     }
 
-    throw err;
+    config = {
+      ...config,
+      ...args,
+    };
   }
+
+  if (config.excludes) {
+    config.excludes = await resolvePaths(config.excludes);
+  }
+
+  validateConfig(config);
+
+  return config;
 };
