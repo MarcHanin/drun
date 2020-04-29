@@ -23,7 +23,7 @@ function parseArguments() {
 async function main() {
   const args = parseArguments();
   const config = await loadConfig(args);
-  const resolvedEntryPoint = await Deno.realpath(config.entryPoint);
+  const resolvedEntryPoint = await Deno.realPath(config.entryPoint);
   const runner = new Runner(resolvedEntryPoint, config);
 
   await runner.run();

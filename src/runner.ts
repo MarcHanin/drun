@@ -14,10 +14,10 @@ export class Runner {
    */
   private getCwd(): Promise<string> {
     if (this.config.cwd) {
-      return Deno.realpath(this.config.cwd);
+      return Deno.realPath(this.config.cwd);
     }
 
-    return Deno.realpath(DEFAULT_CWD);
+    return Deno.realPath(DEFAULT_CWD);
   }
 
   /**
@@ -59,7 +59,7 @@ export class Runner {
    */
   public async run(): Promise<void> {
     const cwd = await this.getCwd();
-    const events = Deno.fsEvents(cwd);
+    const events = Deno.watchFs(cwd);
     let process = this.runProcess();
 
     for await (const event of events) {

@@ -21,7 +21,7 @@ const ENTRY_POINT_ALLOWED_EXTENSIONS = [
  * @param paths - List of paths to resolve
  */
 const resolvePaths = async (paths: string[]): Promise<string[]> => {
-  const pathsToResolve = paths.map(path => Deno.realpath(path));
+  const pathsToResolve = paths.map(path => Deno.realPath(path));
   const resolvedPaths = await Promise.allSettled(pathsToResolve);
 
   const fulfilledPromises = resolvedPaths
