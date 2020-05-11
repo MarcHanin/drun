@@ -5,7 +5,7 @@ Helps to restart automatically your deno application during development
 ## Installation
 
 ```sh
-deno install --allow-read --allow-run --unstable drun https://deno.land/x/drun/drun.ts
+deno install --allow-read --allow-run --unstable https://deno.land/x/drun/drun.ts
 ```
 
 ## How to use

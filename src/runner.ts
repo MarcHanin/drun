@@ -1,6 +1,7 @@
 import { Config } from './interfaces/types.ts';
 
 const DENO_EXE = 'deno';
+const DENO_RUN_COMMAND = 'run';
 const DEFAULT_CWD = './';
 
 export class Runner {
@@ -27,6 +28,7 @@ export class Runner {
     return Deno.run({
       cmd: [
         DENO_EXE,
+        DENO_RUN_COMMAND,
         '--allow-all', // TODO Manage permissions
         this.entryPath,
       ],
@@ -64,7 +66,7 @@ export class Runner {
 
     for await (const event of events) {
       if (this.shouldReload(event)) {
-        process.kill(1);
+        process.kill(Deno.Signal.SIGINT);
         process = this.runProcess();
       }
     }
