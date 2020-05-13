@@ -1,6 +1,6 @@
 import { readJson, extname } from './deps.ts';
 import { Config } from './interfaces/types.ts';
-import { DrunConfigValidationError } from './errors/drunConfigValidationError.ts';
+import { DrunConfigValidationError } from './errors/drun_config_validation_error.ts';
 
 const DEFAULT_CONFIG_PATH = './drun.json';
 
