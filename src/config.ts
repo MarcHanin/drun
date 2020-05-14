@@ -1,18 +1,18 @@
-import { readJson, extname } from './deps.ts';
-import { Config } from './interfaces/types.ts';
-import { DrunConfigValidationError } from './errors/drun_config_validation_error.ts';
+import { readJson, extname } from "./deps.ts";
+import { Config } from "./interfaces/types.ts";
+import { DrunConfigValidationError } from "./errors/drun_config_validation_error.ts";
 
-const DEFAULT_CONFIG_PATH = './drun.json';
+const DEFAULT_CONFIG_PATH = "./drun.json";
 
 const DEFAULT_CONFIG = {
-  cwd: './',
-  entryPoint: '',
+  cwd: "./",
+  entryPoint: "",
   excludes: [],
 };
 
 const ENTRY_POINT_ALLOWED_EXTENSIONS = [
-  '.js',
-  '.ts',
+  ".js",
+  ".ts",
 ];
 
 /**
@@ -21,14 +21,14 @@ const ENTRY_POINT_ALLOWED_EXTENSIONS = [
  * @param paths - List of paths to resolve
  */
 const resolvePaths = async (paths: string[]): Promise<string[]> => {
-  const pathsToResolve = paths.map(path => Deno.realPath(path));
+  const pathsToResolve = paths.map((path) => Deno.realPath(path));
   const resolvedPaths = await Promise.allSettled(pathsToResolve);
 
   const fulfilledPromises = resolvedPaths
-    .filter(result => result.status === 'fulfilled') as any;
+    .filter((result) => result.status === "fulfilled") as any;
 
   return fulfilledPromises
-    .map((res: PromiseFulfilledResult<string>) => res.value)
+    .map((res: PromiseFulfilledResult<string>) => res.value);
 };
 
 /**
@@ -38,25 +38,27 @@ const resolvePaths = async (paths: string[]): Promise<string[]> => {
  */
 const validateConfig = (config: any) => {
   if (config.excludes && !Array.isArray(config.excludes)) {
-    throw new DrunConfigValidationError('Excludes must be an array');
+    throw new DrunConfigValidationError("Excludes must be an array");
   }
 
-  if (config.cwd && typeof config.cwd !== 'string') {
-    throw new DrunConfigValidationError('CWD must be a string');
+  if (config.cwd && typeof config.cwd !== "string") {
+    throw new DrunConfigValidationError("CWD must be a string");
   }
 
   if (!config.entryPoint) {
-    throw new DrunConfigValidationError('Entry point is required');
+    throw new DrunConfigValidationError("Entry point is required");
   }
 
-  if (config.entryPoint && typeof config.entryPoint !== 'string') {
-    throw new DrunConfigValidationError('Entry point must be a string');
+  if (config.entryPoint && typeof config.entryPoint !== "string") {
+    throw new DrunConfigValidationError("Entry point must be a string");
   }
 
   if (!ENTRY_POINT_ALLOWED_EXTENSIONS.includes(extname(config.entryPoint))) {
-    throw new DrunConfigValidationError('Entry point must be one of the following types: .js, .ts');
+    throw new DrunConfigValidationError(
+      "Entry point must be one of the following types: .js, .ts",
+    );
   }
-}
+};
 
 /**
  * Load configuration

@@ -1,6 +1,6 @@
-import { Runner } from './src/runner.ts';
-import { loadConfig } from './src/config.ts';
-import { parseArguments } from './src/parse_arguments.ts';
+import { Runner } from "./src/runner.ts";
+import { loadConfig } from "./src/config.ts";
+import { parseArguments } from "./src/parse_arguments.ts";
 
 async function main() {
   const args = parseArguments(Deno.args);

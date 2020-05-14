@@ -1,8 +1,8 @@
-import { Config } from './interfaces/types.ts';
+import { Config } from "./interfaces/types.ts";
 
-const DENO_EXE = 'deno';
-const DENO_RUN_COMMAND = 'run';
-const DEFAULT_CWD = './';
+const DENO_EXE = "deno";
+const DENO_RUN_COMMAND = "run";
+const DEFAULT_CWD = "./";
 
 export class Runner {
   constructor(
@@ -29,10 +29,10 @@ export class Runner {
       cmd: [
         DENO_EXE,
         DENO_RUN_COMMAND,
-        '--allow-all', // TODO Manage permissions
+        "--allow-all", // TODO Manage permissions
         this.entryPath,
       ],
-    })
+    });
   }
 
   /**
@@ -41,7 +41,7 @@ export class Runner {
    * @param event - FS event
    */
   private shouldReload(event: Deno.FsEvent): boolean {
-    if (event.kind !== 'modify') {
+    if (event.kind !== "modify") {
       return false;
     }
 
