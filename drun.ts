@@ -1,14 +1,10 @@
-import { Runner } from "./src/runner.ts";
 import { loadConfig } from "./src/config.ts";
-import { parseArguments } from "./src/parse_arguments.ts";
+import { CommandsFactory } from "./src/commands_factory.ts";
 
 async function main() {
-  const args = parseArguments(Deno.args);
-  const config = await loadConfig(args);
-  const resolvedEntryPoint = await Deno.realPath(config.entryPoint);
-  const runner = new Runner(resolvedEntryPoint, config);
-
-  await runner.run();
+  const config = await loadConfig();
+  const command = CommandsFactory.create(Deno.args, config);
+  await command.run();
 }
 
 if (import.meta.main) {

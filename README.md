@@ -5,17 +5,33 @@ Helps to restart automatically your deno application during development
 ## Installation
 
 ```sh
-deno install --allow-read --allow-run --unstable https://deno.land/x/drun@v1.0.0/drun.ts
+deno install --allow-read --allow-run --unstable https://deno.land/x/drun@v1.1.0/drun.ts
 ```
 
 ## How to use
 
+### Watch
+
+Use deno run with watch mode
+
 ```sh
-drun --entryPoint=./index.ts --cwd=./
+drun watch --entryPoint=./index.ts --cwd=./ --runtimeOptions=--allow-net
 ```
+
+#### Available options
 
 - `--entryPoint`: The entry point of your program
 - `--cwd`: Root folder from which you want to watch
+- `--runtimeOptions`: Options you want to send to the Deno runtime
+- `--help`: Display help for watch command
+
+### Help
+
+Display help
+
+```sh
+drun help
+```
 
 ## Configuration file
 
@@ -30,6 +46,10 @@ This configuration file must be named `drun.json`
   "cwd": "./",
   "excludes": [
     "./file/you/want/to/exclude.ts"
+  ],
+  "runtimeOptions": [
+    "--allow-net",
+    "--allow-read"
   ]
 }
 ```
