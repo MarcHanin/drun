@@ -15,10 +15,7 @@ interface WatchOptions {
 const DENO_RUN_COMMAND = "run";
 
 export class Watch implements Command {
-  constructor(
-    private args: string[],
-    private config: DrunConfig,
-  ) {}
+  constructor(private args: string[], private config: DrunConfig) {}
 
   /**
    * Parse CLI arguments
@@ -28,17 +25,24 @@ export class Watch implements Command {
     const options: WatchOptions = {};
 
     this.args.forEach((arg) => {
-      if (arg.includes("--entryPoint=")) { // TODO Improve this code
-        const entryPoint = arg.split("=")[1];
-        options.entryPoint = entryPoint;
-      } else if (arg.includes("--cwd=")) {
-        const cwd = arg.split("=")[1];
-        options.cwd = cwd;
-      } else if (arg.includes("--runtimeOptions")) {
-        const runtimeOption = arg.split("=")[1].split(",");
-        options.runtimeOptions = runtimeOption;
-      } else if (arg.includes("--help")) {
+      if (/^--help/.test(arg) || /^-h/.test(arg)) {
         options.help = true;
+      } else if (/^--.+=/.test(arg)) {
+        let m = arg.match(/^--([^=]+)=([\s\S]*)$/);
+        if (m === null) return;
+        let key = m[1];
+        let value = m[2];
+        switch (key) {
+          case "entryPoint":
+            options.entryPoint = value;
+            break;
+          case "cwd":
+            options.cwd = value;
+            break;
+          case "runtimeOptions":
+            options.runtimeOptions = value.split(",");
+            break;
+        }
       }
     });
 
