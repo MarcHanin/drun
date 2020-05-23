@@ -28,10 +28,9 @@ export class Watch implements Command {
       if (/^--help/.test(arg) || /^-h/.test(arg)) {
         options.help = true;
       } else if (/^--.+=.+/.test(arg)) {
-        let m = arg.match(/^--([^=]+)=([\s\S]*)$/);
-        if (m === null) return;
-        let key = m[1];
-        let value = m[2];
+        const option = arg.match(/^--([^=]+)=([\s\S]*)$/);
+        if (option === null) return;
+        const [,key, value] = option;
         switch (key) {
           case "entryPoint":
             options.entryPoint = value;
