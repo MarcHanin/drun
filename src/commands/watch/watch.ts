@@ -27,7 +27,7 @@ export class Watch implements Command {
     this.args.forEach((arg) => {
       if (/^--help/.test(arg) || /^-h/.test(arg)) {
         options.help = true;
-      } else if (/^--.+=/.test(arg)) {
+      } else if (/^--.+=.+/.test(arg)) {
         let m = arg.match(/^--([^=]+)=([\s\S]*)$/);
         if (m === null) return;
         let key = m[1];
