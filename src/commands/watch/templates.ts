@@ -8,6 +8,6 @@ export const HELP_TEMPLATE = `
 \x1b[1mOPTIONS:\x1b[0m
     --cwd             Root folder from which you want to watch
     --entryPoint      The entry point of your program
-    --help            Display help for watch command
+    --help or -h      Display help for watch command
     --runtimeOptions  Options you want to send to the Deno runtime
 `;
