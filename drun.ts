@@ -1,3 +1,4 @@
+import * as log from "https://deno.land/std@v0.53.0/log/mod.ts";
 import { loadConfig } from "./src/config.ts";
 import { CommandsFactory } from "./src/commands_factory.ts";
 
@@ -7,11 +8,13 @@ async function main() {
   await command.run();
 }
 
+const logger = log.getLogger();
+
 if (import.meta.main) {
   try {
     await main();
   } catch (err) {
-    console.error(err); // TODO Change to Deno.log
+    logger.error(err);
     Deno.exit(1);
   }
 }
