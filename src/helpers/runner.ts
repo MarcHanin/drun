@@ -2,6 +2,9 @@ const DENO_EXE = "deno";
 const DEFAULT_CWD = "./";
 const UPDATE_FS_EVENT = "modify";
 
+const MAX_TRIES = 10;
+const SLEEP_MS = 10;
+
 export class Runner {
   constructor(
     private runtimeCommand: string,
@@ -61,6 +64,14 @@ export class Runner {
   }
 
   /**
+   * Resolves the promise after a given time
+   * @param ms time in millis
+   */
+  private sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
    * Run process
    */
   public async run(): Promise<void> {
@@ -70,7 +81,14 @@ export class Runner {
 
     for await (const event of events) {
       if (this.shouldReload(event)) {
-        process.kill(Deno.Signal.SIGINT);
+        for (let i = 0; i < MAX_TRIES; i++) { // try to kill the process multiple times
+          try {
+            process.kill(Deno.Signal.SIGINT); // may throw Permission Denied by OS
+            break;
+          } catch (e) {
+            await this.sleep(SLEEP_MS); // wait and pray for recover
+          }
+        }
         process = this.runProcess();
       }
     }
