@@ -12,10 +12,10 @@ deno install --allow-read --allow-run --unstable https://deno.land/x/drun@v1.1.0
 
 ### Watch
 
-Use deno run with watch mode
+Use deno run with watch mode, remember to separate `--runtimeOptions` with commas and without spaces
 
 ```sh
-drun watch --entryPoint=./index.ts --cwd=./ --runtimeOptions=--allow-net
+drun watch --entryPoint=./index.ts --cwd=./ --runtimeOptions=--allow-net=0.0.0.0,--allow-write,--allow-read
 ```
 
 #### Available options
