@@ -12,10 +12,10 @@ deno install --allow-read --allow-run --unstable https://deno.land/x/drun@v1.1.0
 
 ### Watch
 
-Use deno run with watch mode
+Use deno run with watch mode, remember to separate `--runtimeOptions` with commas
 
 ```sh
-drun watch --entryPoint=./index.ts --cwd=./ --runtimeOptions=--allow-net
+drun watch --entryPoint=./index.ts --cwd=./ --runtimeOptions=--allow-net=0.0.0.0,--allow-write,--allow-read
 ```
 
 #### Available options
@@ -31,6 +31,8 @@ Display help
 
 ```sh
 drun help
+drun -h
+drun --help
 ```
 
 ## Configuration file
@@ -44,12 +46,7 @@ This configuration file must be named `drun.json`
 {
   "entryPoint": "./index.ts",
   "cwd": "./",
-  "excludes": [
-    "./file/you/want/to/exclude.ts"
-  ],
-  "runtimeOptions": [
-    "--allow-net",
-    "--allow-read"
-  ]
+  "excludes": ["./file/you/want/to/exclude.ts"],
+  "runtimeOptions": ["--allow-net", "--allow-read"]
 }
 ```
