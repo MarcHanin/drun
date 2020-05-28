@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std@v0.53.0/log/mod.ts";
+import { log } from "./src/deps.ts";
 import { loadConfig } from "./src/config.ts";
 import { CommandsFactory } from "./src/commands_factory.ts";
 
