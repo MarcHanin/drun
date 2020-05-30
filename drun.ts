@@ -1,4 +1,4 @@
-import { log } from "./src/deps.ts";
+import { log } from "./deps.ts";
 import { loadConfig } from "./src/config.ts";
 import { CommandsFactory } from "./src/commands_factory.ts";
 

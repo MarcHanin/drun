@@ -1,4 +1,4 @@
-import { extname } from "../../../deps.ts";
+import { extname } from "../../../../deps.ts";
 import { DrunConfigValidationError } from "../../../errors/drun_config_validation_error.ts";
 import { DrunConfig } from "../../../interfaces/types.ts";
 

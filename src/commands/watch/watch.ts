@@ -30,7 +30,7 @@ export class Watch implements Command {
       } else if (/^--.+=.+/.test(arg)) {
         const option = arg.match(/^--([^=]+)=([\s\S]*)$/);
         if (option === null) return;
-        const [,key, value] = option;
+        const [, key, value] = option;
         switch (key) {
           case "entryPoint":
             options.entryPoint = value;
