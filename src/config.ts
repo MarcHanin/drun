@@ -1,4 +1,4 @@
-import { readJson } from "./deps.ts";
+import { readJson } from "../deps.ts";
 import { DrunConfig } from "./interfaces/types.ts";
 
 const DEFAULT_CONFIG_PATH = "./drun.json";
