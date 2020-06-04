@@ -71,7 +71,7 @@ Deno.test("[options_validation] throw error if entry point has a bad file extens
       optionsValidation(options);
     },
     DrunConfigValidationError,
-    "Entry point must be one of the following types: .js,.ts",
+    "Entry point must be one of the following types: .js,.jsx,.ts,.tsx",
   );
 });
 
