@@ -4,7 +4,9 @@ import { DrunConfig } from "../../../interfaces/types.ts";
 
 const ENTRY_POINT_ALLOWED_EXTENSIONS = [
   ".js",
+  ".jsx",
   ".ts",
+  ".tsx",
 ];
 
 /**
