@@ -1,4 +1,4 @@
-import { Help, Watch, Command } from "./commands/index.ts";
+import { Help, Watch, Test, Command } from "./commands/index.ts";
 import { DrunConfig } from "./interfaces/types.ts";
 
 export class CommandsFactory {
@@ -11,10 +11,15 @@ export class CommandsFactory {
   public static create(args: string[], config: DrunConfig): Command {
     const command = args[0];
 
-    if (command === "help") {
-      return new Help();
-    }
+    switch (command) {
+      case "help":
+        return new Help();
 
-    return new Watch(args, config);
+      case "test":
+        return new Test(args, config);
+
+      default:
+        return new Watch(args, config);
+    }
   }
 }

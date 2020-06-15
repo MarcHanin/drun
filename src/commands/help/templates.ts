@@ -7,6 +7,7 @@ Helps to restart automatically your deno application during development
     drun [COMMANDS] [OPTIONS]
 
 \x1b[1mCOMMANDS:\x1b[0m
-    watch           watch files
+    watch           Deno run with watch mode
+    test            Deno test with watch mode
     help            Display Drun help
 `;

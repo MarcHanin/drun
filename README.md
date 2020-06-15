@@ -5,7 +5,7 @@ Helps to restart automatically your deno application during development
 ## Installation
 
 ```sh
-deno install --allow-read --allow-run --unstable https://deno.land/x/drun@v1.2.0/drun.ts
+deno install --allow-read --allow-run --unstable https://deno.land/x/drun/drun.ts
 ```
 
 ## How to use
@@ -24,6 +24,21 @@ drun watch --entryPoint=./index.ts --cwd=./ --runtimeOptions=--allow-net=0.0.0.0
 - `--cwd`: Root folder from which you want to watch
 - `--runtimeOptions`: Options you want to send to the Deno runtime
 - `--help`: Display help for watch command
+
+### Test
+
+Use deno test with watch mode.
+
+```sh
+drun test --entryPoint=index.test.ts --runtimeOptions=--allow-read
+```
+
+#### Available options
+
+- `--entryPoint`: The entry point of your test
+- `--cwd`: Root folder from which you want to watch
+- `--runtimeOptions`: Options you want to send to the Deno runtime
+- `--help`: Display help for test command
 
 ### Help
 
