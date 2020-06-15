@@ -1,6 +1,8 @@
 import { Watch } from "../../../../src/commands/watch/command.ts";
 import { assertEquals } from "../../../../dev_deps.ts";
 
+const SCOPE = "commands/watch/command";
+
 function getConfig() {
   return {
     entryPoint: "./main.ts",
@@ -10,7 +12,7 @@ function getConfig() {
   };
 }
 
-Deno.test("[watch] parse help argument", () => {
+Deno.test(`[${SCOPE}] parse help argument`, () => {
   const rawArgs = ["--help"];
   const config = getConfig();
   const watch = new Watch(rawArgs, config);
@@ -22,7 +24,7 @@ Deno.test("[watch] parse help argument", () => {
   assertEquals(args, expected);
 });
 
-Deno.test("[watch] parse options arguments", () => {
+Deno.test(`[${SCOPE}] parse options arguments`, () => {
   const rawArgs = [
     "--entryPoint=main.ts",
     "--cwd=./",

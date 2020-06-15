@@ -2,7 +2,9 @@ import { assertThrows } from "../../../../../dev_deps.ts";
 import { optionsValidation } from "../../../../../src/commands/watch/validation/options_validation.ts";
 import { DrunConfigValidationError } from "../../../../../src/errors/drun_config_validation_error.ts";
 
-Deno.test("[options_validation] throw error if excludes is not an array", () => {
+const SCOPE = "commands/watch/validation/options_validation";
+
+Deno.test(`[${SCOPE}] throw error if excludes is not an array`, () => {
   const options = {
     excludes: "bad exclude",
   };
@@ -17,7 +19,7 @@ Deno.test("[options_validation] throw error if excludes is not an array", () => 
   );
 });
 
-Deno.test("[options_validation] throw error if CWD is not a string", () => {
+Deno.test(`[${SCOPE}] throw error if CWD is not a string`, () => {
   const options = {
     cwd: {},
   };
@@ -32,7 +34,7 @@ Deno.test("[options_validation] throw error if CWD is not a string", () => {
   );
 });
 
-Deno.test("[options_validation] throw error if no entryPoint was provided", () => {
+Deno.test(`[${SCOPE}] throw error if no entryPoint was provided`, () => {
   const options = {};
 
   assertThrows(
@@ -45,7 +47,7 @@ Deno.test("[options_validation] throw error if no entryPoint was provided", () =
   );
 });
 
-Deno.test("[options_validation] throw error if entry point is not a string", () => {
+Deno.test(`[${SCOPE}] throw error if entry point is not a string`, () => {
   const options = {
     entryPoint: 10,
   };
@@ -60,7 +62,7 @@ Deno.test("[options_validation] throw error if entry point is not a string", () 
   );
 });
 
-Deno.test("[options_validation] throw error if entry point has a bad file extension", () => {
+Deno.test(`[${SCOPE}] throw error if entry point has a bad file extension`, () => {
   const options = {
     entryPoint: "./myFile.rs",
   };
@@ -75,7 +77,7 @@ Deno.test("[options_validation] throw error if entry point has a bad file extens
   );
 });
 
-Deno.test("[options_validation] throw error if runtimeOptions is not an array", () => {
+Deno.test(`[${SCOPE}] throw error if runtimeOptions is not an array`, () => {
   const options = {
     entryPoint: "./myFile.ts",
     runtimeOptions: "--allow-net",
@@ -91,7 +93,7 @@ Deno.test("[options_validation] throw error if runtimeOptions is not an array", 
   );
 });
 
-Deno.test("[options_validation] valid options", () => {
+Deno.test(`[${SCOPE}] valid options`, () => {
   const options = {
     excludes: [
       "./test/data/file_to_exclude.ts",
