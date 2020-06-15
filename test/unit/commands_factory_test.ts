@@ -3,7 +3,9 @@ import { Watch } from "../../src/commands/watch/command.ts";
 import { CommandsFactory } from "../../src/commands_factory.ts";
 import { assert } from "../../dev_deps.ts";
 
-Deno.test("[commands_factory] Create help command instance", () => {
+const SCOPE = "commands_factory";
+
+Deno.test(`[${SCOPE}] Create help command instance`, () => {
   const args = ["help"];
   const config = {} as any; // TODO Replace that
   const command = CommandsFactory.create(args, config);
@@ -11,7 +13,7 @@ Deno.test("[commands_factory] Create help command instance", () => {
   assert(command instanceof Help);
 });
 
-Deno.test("[commands_factory] Create watch command instance", () => {
+Deno.test(`[${SCOPE}] Create watch command instance`, () => {
   const args = ["watch"];
   const config = {} as any; // TODO Replace that
   const command = CommandsFactory.create(args, config);
@@ -19,7 +21,7 @@ Deno.test("[commands_factory] Create watch command instance", () => {
   assert(command instanceof Watch);
 });
 
-Deno.test("[commands_factory] Create watch command instance by default", () => {
+Deno.test(`[${SCOPE}] Create watch command instance by default`, () => {
   const args = [] as string[];
   const config = {} as any; // TODO Replace that
   const command = CommandsFactory.create(args, config);

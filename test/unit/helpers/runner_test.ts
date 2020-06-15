@@ -1,7 +1,9 @@
 import { Runner } from "../../../src/helpers/runner.ts";
 import { assert, existsSync } from "../../../dev_deps.ts";
 
-Deno.test("[runner] get current working directory", async () => {
+const SCOPE = "helpers/runner";
+
+Deno.test(`[${SCOPE}] get current working directory`, async () => {
   const command = "run";
   const options = {
     cwd: "./test/data",
@@ -12,7 +14,7 @@ Deno.test("[runner] get current working directory", async () => {
   assert(existsSync(cwd));
 });
 
-Deno.test("[runner] should not reload if modify exluded file", () => {
+Deno.test(`[${SCOPE}] should not reload if modify exluded file`, () => {
   const command = "run";
   const options = {
     excludes: [
@@ -33,7 +35,7 @@ Deno.test("[runner] should not reload if modify exluded file", () => {
   assert(!shouldReload);
 });
 
-Deno.test("[runner] should not reload with different event from modify", () => {
+Deno.test(`[${SCOPE}] should not reload with different event from modify`, () => {
   const command = "run";
   const options = {};
   const runner = new Runner(command, options);
@@ -50,7 +52,7 @@ Deno.test("[runner] should not reload with different event from modify", () => {
   assert(!shouldReload);
 });
 
-Deno.test("[runner] should reload", () => {
+Deno.test(`[${SCOPE}] should reload`, () => {
   const command = "run";
   const options = {};
   const runner = new Runner(command, options);
