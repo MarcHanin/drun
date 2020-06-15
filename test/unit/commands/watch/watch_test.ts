@@ -1,4 +1,4 @@
-import { Watch } from "../../../../src/commands/watch/watch.ts";
+import { Watch } from "../../../../src/commands/watch/command.ts";
 import { assertEquals } from "../../../../dev_deps.ts";
 
 function getConfig() {

@@ -1,4 +1,7 @@
-import { Help, Watch, Test, Command } from "./commands/index.ts";
+import { Help } from "./commands/help/command.ts";
+import { Watch } from "./commands/watch/command.ts";
+import { Test } from "./commands/test/command.ts";
+import { Command } from "./commands/command.ts";
 import { DrunConfig } from "./interfaces/types.ts";
 
 export class CommandsFactory {

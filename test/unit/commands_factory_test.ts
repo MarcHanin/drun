@@ -1,4 +1,5 @@
-import { Help, Watch } from "../../src/commands/index.ts";
+import { Help } from "../../src/commands/help/command.ts";
+import { Watch } from "../../src/commands/watch/command.ts";
 import { CommandsFactory } from "../../src/commands_factory.ts";
 import { assert } from "../../dev_deps.ts";
 
